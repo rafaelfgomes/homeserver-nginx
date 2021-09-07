@@ -28,6 +28,9 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/logs/letsencrypt
       - ./certbot/data:/etc/nginx/letsencrypt
+    networks:
+      server-network:
+        ipv4_address: 172.40.0.4
   
 
 networks:
