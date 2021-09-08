@@ -10,7 +10,7 @@ services:
       - ./nginx/dhparam:/etc/nginx/dhparam
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/etc/letsencrypt
+      - ./certbot/data:/etc/nginx/letsencrypt
     environment: 
       BASE_URI: ${SERVER_URI}
     ports:
@@ -22,14 +22,9 @@ services:
         ipv4_address: 172.40.0.3
 
   certbot:
-    build: 
-      context: .
-      dockerfile: ./certbot/Dockerfile
-      args: 
-        CERTBOT_EMAIL: ${CERTBOT_EMAIL}
-        SERVER_URI: ${SERVER_URI}
-        DUCKDNS_TOKEN: ${DUCKDNS_TOKEN}
+    image: infinityofspace/certbot_dns_duckdns
     container_name: nginx-certbot
+    command: "certonly --non-interactive --email ${CERTBOT_EMAIL} --preferred-challenges dns --authenticator dns-duckdns --dns-duckdns-token ${DUCKDNS_TOKEN} --agree-tos --dns-duckdns-propagation-seconds 60 -d ${SERVER_URI} -d www.${SERVER_URI}"
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/log/letsencrypt
