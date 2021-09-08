@@ -18,6 +18,6 @@ COPY ./certbot/init.sh ./
 
 RUN ls -la
 
-RUN chmod +x /init.sh
+RUN chmod +x init.sh
 
 CMD [ "sh", "./init.sh" ]
