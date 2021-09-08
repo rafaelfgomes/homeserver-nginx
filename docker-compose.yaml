@@ -22,13 +22,19 @@ services:
         ipv4_address: 172.40.0.3
 
   certbot:
-    image: certbot/certbot
+    build: 
+      context: .
+      dockerfile: ./certbot/Dockerfile
+      args: 
+        CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+        SERVER_URI: ${SERVER_URI}
+        DUCKDNS_TOKEN: ${DUCKDNS_TOKEN}
     container_name: nginx-certbot
-    command: --nginx certonly --webroot --webroot-path=/etc/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d https://www.duckdns.org/update?domains=${DUCKDNS_DOMAIN}&token=${DUCKDNS_TOKEN}
+    command: 
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/log/letsencrypt
-      - ./certbot/data:/etc/letsencrypt
+      - ./certbot/data:/etc/nginx/letsencrypt
     networks:
       server-network:
         ipv4_address: 172.40.0.4
