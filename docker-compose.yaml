@@ -24,7 +24,7 @@ services:
   certbot:
     image: certbot/certbot
     container_name: nginx-certbot
-    command: certonly --webroot --webroot-path=/etc/nginx/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ap44server.duckdns.org -d www.ap44server.duckdns.org
+    command: certonly --webroot --webroot-path=/etc/nginx/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ${SERVER_URI} -d www.${SERVER_URI}
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/logs/letsencrypt
