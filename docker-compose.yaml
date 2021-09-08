@@ -30,7 +30,6 @@ services:
         SERVER_URI: ${SERVER_URI}
         DUCKDNS_TOKEN: ${DUCKDNS_TOKEN}
     container_name: nginx-certbot
-    command: 
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/log/letsencrypt
