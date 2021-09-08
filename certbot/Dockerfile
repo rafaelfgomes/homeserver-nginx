@@ -14,6 +14,8 @@ RUN pip3 install pip --upgrade
 
 RUN pip3 install certbot_dns_duckdns
 
-RUN chmod +x ./certbot/init.sh
+RUN ls -la
+
+RUN chmod +x init.sh
 
 CMD [ "sh", "./init.sh" ]
