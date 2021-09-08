@@ -3,7 +3,7 @@ version: '3'
 services:
   nginx:
     image: nginx:alpine
-    container_name: nginx-ap44
+    container_name: nginx-homeserver
     volumes:
       - ./server:/var/www/html
       - ./nginx/conf.d:/etc/nginx/conf.d
@@ -26,7 +26,7 @@ services:
   certbot:
     image: infinityofspace/certbot_dns_duckdns
     container_name: nginx-certbot
-    command: "certonly --non-interactive --agree-tos --email ${CERTBOT_EMAIL} --preferred-challenges dns --authenticator dns-duckdns --dns-duckdns-token ${DUCKDNS_TOKEN} --dns-duckdns-propagation-seconds 90 -d ${SERVER_URI}"
+    command: "certonly --non-interactive --agree-tos --email ${CERTBOT_EMAIL} --preferred-challenges dns --authenticator dns-duckdns --dns-duckdns-token ${DUCKDNS_TOKEN} --dns-duckdns-propagation-seconds 120 -d ${SERVER_DOMAIN}${DUCKDNS_URL} -d ${PORTAINER_DOMAIN}${DUCKDNS_URL}"
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/log/letsencrypt
@@ -34,7 +34,6 @@ services:
     networks:
       server-network:
         ipv4_address: 172.40.0.4
-  
 
 networks:
     server-network:
