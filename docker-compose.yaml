@@ -24,7 +24,7 @@ services:
   certbot:
     image: certbot/certbot
     container_name: nginx-certbot
-    command: --nginx certonly --webroot --webroot-path=/etc/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ${SERVER_URI}
+    command: --nginx certonly --webroot --webroot-path=/etc/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d https://www.duckdns.org/update?domains=${DUCKDNS_DOMAIN}&token=${DUCKDNS_TOKEN}
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/logs:/var/log/letsencrypt
