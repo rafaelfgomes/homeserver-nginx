@@ -10,4 +10,4 @@ RUN pip3 install pip --upgrade
 
 RUN pip3 install certbot_dns_duckdns
 
-CMD [ "certbot", "certonly", "--non-interactive --email ${CERTBOT_EMAIL} --preferred-challenges dns --authenticator dns-duckdns --dns-duckdns-token ${DUCKDNS_TOKEN} --agree-tos -d ${SERVER_URI}" ]
+CMD [ "certonly", "--non-interactive --email ${CERTBOT_EMAIL} --preferred-challenges dns --authenticator dns-duckdns --dns-duckdns-token ${DUCKDNS_TOKEN} --agree-tos -d ${SERVER_URI}" ]
