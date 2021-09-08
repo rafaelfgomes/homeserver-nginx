@@ -10,7 +10,7 @@ services:
       - ./nginx/dhparam:/etc/nginx/dhparam
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/etc/nginx/letsencrypt:rw
+      - ./certbot/data:/etc/letsencrypt
     environment: 
       BASE_URI: ${SERVER_URI}
     ports:
@@ -24,11 +24,11 @@ services:
   certbot:
     image: certbot/certbot
     container_name: nginx-certbot
-    command: certonly --webroot --webroot-path=/etc/nginx/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ${SERVER_URI}
+    command: certonly --webroot --webroot-path=/etc/letsencrypt --email ${CERTBOT_EMAIL} --agree-tos --no-eff-email -d ${SERVER_URI}
     volumes: 
       - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/logs:/var/logs/letsencrypt
-      - ./certbot/data:/etc/nginx/letsencrypt:rw
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/data:/etc/letsencrypt
     networks:
       server-network:
         ipv4_address: 172.40.0.4
