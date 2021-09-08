@@ -18,7 +18,7 @@ services:
       - "443:443"
     restart: always
     depends_on: 
-      "certbot"
+      - "certbot"
     networks:
       server-network:
         ipv4_address: 172.40.0.3
