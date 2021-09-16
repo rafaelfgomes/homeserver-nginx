@@ -19,7 +19,7 @@ services:
       - "certbot"
     networks:
       server-network:
-        ipv4_address: 172.40.0.3
+        ipv4_address: ${NGINX_IP}
 
   certbot:
     image: infinityofspace/certbot_dns_duckdns
@@ -31,7 +31,7 @@ services:
       - ./certbot/data:/etc/letsencrypt
     networks:
       server-network:
-        ipv4_address: 172.40.0.4
+        ipv4_address: ${CERTBOT_IP}
 
 networks:
     server-network:
